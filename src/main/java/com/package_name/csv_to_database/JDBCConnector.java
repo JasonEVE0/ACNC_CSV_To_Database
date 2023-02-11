@@ -6,13 +6,12 @@ import java.util.logging.Logger;
 
 public class JDBCConnector {
 
-    private String url = "jdbc:mysql://localhost:3306/evesyn";
-    private String username = "root";
-    private String password = "Swag123!";
+    private String url = "jdbc:mysql://localhost:3306/database";
+    private String username = "user";
+    private String password = "pass";
     private Logger log = Logger.getLogger(JDBCConnector.class.getName());
 
     public void insertRecordList(List<Record> recordList){
-        dont run again
         String query = "INSERT INTO charities VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(url, username, password);
@@ -70,61 +69,3 @@ public class JDBCConnector {
         }
     }
 }
-
-//
-//    public void insertRecordList(List<Record> recordList){
-//        try (Connection con = DriverManager.getConnection(url, username, password);
-//             Statement st = con.createStatement())
-//        {
-//            log.info("inserting records into table...");
-//            for (Record recordItem : recordList) {
-//                st.executeUpdate("INSERT INTO charities VALUES (" +
-//                        recordItem.getId() + ", " +
-//                        recordItem.getAbn() + ", " +
-//                        recordItem.getName() + ", " +
-//                        recordItem.getWebsiteUrl() + ", " +
-//                        recordItem.isOperates_in_act() + ", " +
-//                        recordItem.isOperates_in_nsw() + ", " +
-//                        recordItem.isOperates_in_nt() + ", " +
-//                        recordItem.isOperates_in_qld() + ", " +
-//                        recordItem.isOperates_in_sa() + ", " +
-//                        recordItem.isOperates_in_tas() + ", " +
-//                        recordItem.isOperates_in_vic() + ", " +
-//                        recordItem.isOperates_in_wa() + ", " +
-//                        recordItem.isAnimals() + ", " +
-//                        recordItem.isCulture() + ", " +
-//                        recordItem.isEducation() + ", " +
-//                        recordItem.isHealth() + ", " +
-//                        recordItem.isLaw() + ", " +
-//                        recordItem.isHuman_rights() + ", " +
-//                        recordItem.isPublic_welfare() + ", " +
-//                        recordItem.isReligion() + ", " +
-//                        recordItem.isSecurity() + ", " +
-//                        recordItem.isAboriginal_or_torres_strait_islanders() + ", " +
-//                        recordItem.isAdults() + ", " +
-//                        recordItem.isElderly() + ", " +
-//                        recordItem.isChildren() + ", " +
-//                        recordItem.isOverseas() + ", " +
-//                        recordItem.isDiversity() + ", " +
-//                        recordItem.isFemales() + ", " +
-//                        recordItem.isFamilies() + ", " +
-//                        recordItem.isFinancial() + ", " +
-//                        recordItem.isLgbt_plus() + ", " +
-//                        recordItem.isMigrants() + ", " +
-//                        recordItem.isMales() + ", " +
-//                        recordItem.isChronic_illness() + ", " +
-//                        recordItem.isDisabilities() + ", " +
-//                        recordItem.isRural() + ", " +
-//                        recordItem.isUnemployed() + ", " +
-//                        recordItem.isVeterans() + ", " +
-//                        recordItem.isYouth() + ", " +
-//                        recordItem.isVictims_of_crime() + ", " +
-//                        recordItem.isVictims_of_disaster() + ", " +
-//                        ")"
-//                );
-//            }
-//            log.info("Successfully inserted all records!");
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
