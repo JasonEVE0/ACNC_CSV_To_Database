@@ -1,7 +1,6 @@
 package com.package_name.csv_to_database;
 
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.UUID;
 
 public final class Record {
@@ -19,8 +18,8 @@ public final class Record {
     private String postcode;
     private String country;
     private String websiteUrl;
-    private Date registrationDate;
-    private Date establishedDate;
+    private String registrationDate;
+    private String establishedDate;
     private String charitySize;
     private int numberOfResponsiblePersons;
     private String financialYearEnd;
@@ -74,7 +73,7 @@ public final class Record {
     private boolean victims_of_disaster;
     private boolean youth;
 
-    public Record(String abn, String name, String otherName, String addressType, String addressLine1, String addressLine2, String addressLine3, String townCity, String state, String postcode, String country, String websiteUrl, Date registrationDate, Date establishedDate, String charitySize, String numberOfResponsiblePersons, String financialYearEnd, String operates_in_act, String operates_in_nsw, String operates_in_nt, String operates_in_qld, String operates_in_sa, String operates_in_tas, String operates_in_vic, String operates_in_wa, String operatingCountries, String pbi, String hpc, String animals, String culture, String education, String health, String law, String naturalEnvironment, String human_rights, String generalPublic, String reconciliation, String religion, String publicWelfare, String security, String aboriginal_or_torres_strait_islanders, String adults, String elderly, String children, String overseas, String earlyChildhood, String ethnicGroups, String families, String females, String financial, String lgbtPlus, String generalCommunity, String males, String migrants, String otherBeneficiaries, String otherCharities, String homelessness, String chronic_illness, String disabilities, String prePostReleaseOffenders, String rural, String unemployed, String veterans, String victims_of_crime, String victims_of_disaster, String youth) {
+    public Record(String abn, String name, String otherName, String addressType, String addressLine1, String addressLine2, String addressLine3, String townCity, String state, String postcode, String country, String websiteUrl, String registrationDate, String establishedDate, String charitySize, String numberOfResponsiblePersons, String financialYearEnd, String operates_in_act, String operates_in_nsw, String operates_in_nt, String operates_in_qld, String operates_in_sa, String operates_in_tas, String operates_in_vic, String operates_in_wa, String operatingCountries, String pbi, String hpc, String animals, String culture, String education, String health, String law, String naturalEnvironment, String human_rights, String generalPublic, String reconciliation, String religion, String publicWelfare, String security, String aboriginal_or_torres_strait_islanders, String adults, String elderly, String children, String overseas, String earlyChildhood, String ethnicGroups, String families, String females, String financial, String lgbtPlus, String generalCommunity, String males, String migrants, String otherBeneficiaries, String otherCharities, String homelessness, String chronic_illness, String disabilities, String prePostReleaseOffenders, String rural, String unemployed, String veterans, String victims_of_crime, String victims_of_disaster, String youth) {
         this.id = UUID.randomUUID().toString();
         this.abn = new BigInteger(abn);
         this.name = name;
@@ -196,11 +195,11 @@ public final class Record {
         return websiteUrl;
     }
 
-    public Date getRegistrationDate() {
+    public String getRegistrationDate() {
         return registrationDate;
     }
 
-    public Date getEstablishedDate() {
+    public String getEstablishedDate() {
         return establishedDate;
     }
 

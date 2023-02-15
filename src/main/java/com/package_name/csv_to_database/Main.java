@@ -11,8 +11,12 @@ public class Main {
         // populate the record list with Record objects
         readCSV();
 
-        // populate the database with Record objects
         JDBCConnector jdbcConnector = new JDBCConnector();
+
+        // create the database
+        jdbcConnector.createDatabase();
+
+        // populate the database
         jdbcConnector.insertRecordList(recordList);
     }
 
