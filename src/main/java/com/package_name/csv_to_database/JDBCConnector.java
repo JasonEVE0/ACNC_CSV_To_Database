@@ -6,15 +6,14 @@ import java.util.logging.Logger;
 
 public class JDBCConnector {
 
-    private String url = "jdbc:mysql://localhost:3306/database";
-    private String username = "user";
-    private String password = "pass";
     private Logger log = Logger.getLogger(JDBCConnector.class.getName());
 
     public void insertRecordList(List<Record> recordList){
-        String query = "INSERT INTO charities VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        int counter = 1;
+        String query = "DROP TABLE IF EXISTS charities " +
+                "INSERT INTO charities VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection con = DriverManager.getConnection(url, username, password);
+        try (Connection con = DataSourceConfig.dataSource().getConnection();
              PreparedStatement pst = con.prepareStatement(query))
         {
             log.info("inserting records into table...");
@@ -61,11 +60,12 @@ public class JDBCConnector {
                 pst.setBoolean(40, recordItem.isVictims_of_crime());
                 pst.setBoolean(41, recordItem.isVictims_of_disaster());
                 pst.executeUpdate();
-                log.info("inserted row");
+                log.info("inserted row: " + counter++);
             }
-            log.info("Successfully inserted all records!");
+            log.info("Successfully inserted all records");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 }
