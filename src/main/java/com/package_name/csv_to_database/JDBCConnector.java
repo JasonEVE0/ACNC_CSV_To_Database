@@ -18,87 +18,88 @@ public class JDBCConnector {
      */
     public void insertRecordList(List<Record> recordList){
         int counter = 1;
-        String query = "INSERT INTO charities VALUES (" +
+        String query = "INSERT INTO charities(ABN, Charity_Legal_Name, Other_Organisation_Names, Address_Type, Address_Line_1, Address_Line_2, Address_Line_3, Town_City, State, Postcode, Country, Charity_Website, Registration_Date, Date_Organisation_Established, Charity_Size, Number_of_Responsible_Persons, Financial_Year_End, Operates_in_ACT, Operates_in_NSW, Operates_in_NT, Operates_in_QLD, Operates_in_SA, Operates_in_TAS, Operates_in_VIC, Operates_in_WA, Operating_Countries, PBI, HPC, Preventing_or_relieving_suffering_of_animals, Advancing_Culture, Advancing_Education, Advancing_Health," +
+                "Promote_or_oppose_a_change_to_law__government_poll_or_prac, Advancing_natual_environment, Promoting_or_protecting_human_rights, Purposes_beneficial_to_ther_general_public_and_other_analogous, Promoting_reconciliation__mutual_respect_and_tolerance, Advancing_Religion, Advancing_social_or_public_welfare, Advancing_security_or_safety_of_Australia_or_Australian_public, Aboriginal_or_TSI, Adults, Aged_Persons, Children, Communities_Overseas, Early_Childhood, Ethnic_Groups, Families, Females, Financially_Disadvantaged, Gay_Lesbian_Bisexual, General_Community_in_Australia," +
+                "Males, Migrants_Refugees_or_Asylum_Seekers, Other_Beneficiaries, Other_Charities, People_at_risk_of_homelessness, People_with_Chronic_Illness, People_with_Disabilities, Pre_Post_Release_Offenders, Rural_Regional_Remote_Communities, Unemployed_Person, Veterans_or_their_families, Victims_of_crime, Victims_of_Disasters, Youth) VALUES (" +
+                "?, ?, ?, ?, ?, ?, ?, ?, ?, " +
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
                 "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?";
+                "?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection con = DataSourceConfig.dataSource().getConnection();
+        try (Connection con = DataSourceConfig.dataSource();
              PreparedStatement pst = con.prepareStatement(query))
         {
             log.info("inserting records into table...");
             for (Record recordItem : recordList) {
-                pst.setString(1, recordItem.getId());
-                pst.setObject(2, recordItem.getAbn(), Types.BIGINT);
-                pst.setString(3, recordItem.getName());
-                pst.setString(4, recordItem.getOtherName());
-                pst.setString(5, recordItem.getAddressType());
-                pst.setString(6, recordItem.getAddressLine1());
-                pst.setString(7, recordItem.getAddressLine2());
-                pst.setString(8, recordItem.getAddressLine3());
-                pst.setString(9, recordItem.getTownCity());
-                pst.setString(10, recordItem.getState());
-                pst.setString(11, recordItem.getPostcode());
-                pst.setString(12, recordItem.getCountry());
-                pst.setString(13, recordItem.getWebsiteUrl());
-                pst.setString(14, recordItem.getRegistrationDate());
-                pst.setString(15, recordItem.getEstablishedDate());
-                pst.setString(16, recordItem.getCharitySize());
-                pst.setString(17, String.valueOf(recordItem.getNumberOfResponsiblePersons()));
-                pst.setString(18, recordItem.getFinancialYearEnd());
-                pst.setBoolean(19, recordItem.isOperates_in_act());
-                pst.setBoolean(20, recordItem.isOperates_in_nsw());
-                pst.setBoolean(21, recordItem.isOperates_in_nt());
-                pst.setBoolean(22, recordItem.isOperates_in_qld());
-                pst.setBoolean(23, recordItem.isOperates_in_sa());
-                pst.setBoolean(24, recordItem.isOperates_in_tas());
-                pst.setBoolean(25, recordItem.isOperates_in_vic());
-                pst.setBoolean(26, recordItem.isOperates_in_wa());
-                pst.setString(27, recordItem.getOperatingCountries());
-                pst.setBoolean(28, recordItem.isPbi());
-                pst.setBoolean(29, recordItem.isHpc());
-                pst.setBoolean(30, recordItem.isAnimals());
-                pst.setBoolean(31, recordItem.isCulture());
-                pst.setBoolean(32, recordItem.isEducation());
-                pst.setBoolean(33, recordItem.isHealth());
-                pst.setBoolean(34, recordItem.isLaw());
-                pst.setBoolean(35, recordItem.isNaturalEnvironment());
-                pst.setBoolean(36, recordItem.isHuman_rights());
-                pst.setBoolean(37, recordItem.isGeneralPublic());
-                pst.setBoolean(38, recordItem.isReconciliation());
-                pst.setBoolean(39, recordItem.isReligion());
-                pst.setBoolean(40, recordItem.isPublicWelfare());
-                pst.setBoolean(41, recordItem.isSecurity());
-                pst.setBoolean(42, recordItem.isAboriginal_or_torres_strait_islanders());
-                pst.setBoolean(43, recordItem.isAdults());
-                pst.setBoolean(44, recordItem.isElderly());
-                pst.setBoolean(45, recordItem.isChildren());
-                pst.setBoolean(46, recordItem.isOverseas());
-                pst.setBoolean(47, recordItem.isEarlyChildhood());
-                pst.setBoolean(48, recordItem.isEthnicGroups());
-                pst.setBoolean(49, recordItem.isFamilies());
-                pst.setBoolean(50, recordItem.isFemales());
-                pst.setBoolean(51, recordItem.isFinancial());
-                pst.setBoolean(52, recordItem.isLgbtPlus());
-                pst.setBoolean(53, recordItem.isGeneralCommunity());
-                pst.setBoolean(54, recordItem.isMales());
-                pst.setBoolean(55, recordItem.isMigrants());
-                pst.setBoolean(56, recordItem.isOtherBeneficiaries());
-                pst.setBoolean(57, recordItem.isOtherCharities());
-                pst.setBoolean(58, recordItem.isHomelessness());
-                pst.setBoolean(59, recordItem.isChronic_illness());
-                pst.setBoolean(60, recordItem.isDisabilities());
-                pst.setBoolean(61, recordItem.isPrePostReleaseOffenders());
-                pst.setBoolean(62, recordItem.isRural());
-                pst.setBoolean(63, recordItem.isUnemployed());
-                pst.setBoolean(64, recordItem.isVeterans());
-                pst.setBoolean(65, recordItem.isVictims_of_crime());
-                pst.setBoolean(66, recordItem.isVictims_of_disaster());
-                pst.setBoolean(67, recordItem.isYouth());
+                pst.setObject(1, recordItem.getAbn(), Types.BIGINT);
+                pst.setString(2, recordItem.getName());
+                pst.setString(3, recordItem.getOtherName());
+                pst.setString(4, recordItem.getAddressType());
+                pst.setString(5, recordItem.getAddressLine1());
+                pst.setString(6, recordItem.getAddressLine2());
+                pst.setString(7, recordItem.getAddressLine3());
+                pst.setString(8, recordItem.getTownCity());
+                pst.setString(9, recordItem.getState());
+                pst.setString(10, recordItem.getPostcode());
+                pst.setString(11, recordItem.getCountry());
+                pst.setString(12, recordItem.getWebsiteUrl());
+                pst.setString(13, recordItem.getRegistrationDate());
+                pst.setString(14, recordItem.getEstablishedDate());
+                pst.setString(15, recordItem.getCharitySize());
+                pst.setString(16, String.valueOf(recordItem.getNumberOfResponsiblePersons()));
+                pst.setString(17, recordItem.getFinancialYearEnd());
+                pst.setBoolean(18, recordItem.isOperates_in_act());
+                pst.setBoolean(19, recordItem.isOperates_in_nsw());
+                pst.setBoolean(20, recordItem.isOperates_in_nt());
+                pst.setBoolean(21, recordItem.isOperates_in_qld());
+                pst.setBoolean(22, recordItem.isOperates_in_sa());
+                pst.setBoolean(23, recordItem.isOperates_in_tas());
+                pst.setBoolean(24, recordItem.isOperates_in_vic());
+                pst.setBoolean(25, recordItem.isOperates_in_wa());
+                pst.setString(26, recordItem.getOperatingCountries());
+                pst.setBoolean(27, recordItem.isPbi());
+                pst.setBoolean(28, recordItem.isHpc());
+                pst.setBoolean(29, recordItem.isAnimals());
+                pst.setBoolean(30, recordItem.isCulture());
+                pst.setBoolean(31, recordItem.isEducation());
+                pst.setBoolean(32, recordItem.isHealth());
+                pst.setBoolean(33, recordItem.isLaw());
+                pst.setBoolean(34, recordItem.isNaturalEnvironment());
+                pst.setBoolean(35, recordItem.isHuman_rights());
+                pst.setBoolean(36, recordItem.isGeneralPublic());
+                pst.setBoolean(37, recordItem.isReconciliation());
+                pst.setBoolean(38, recordItem.isReligion());
+                pst.setBoolean(39, recordItem.isPublicWelfare());
+                pst.setBoolean(40, recordItem.isSecurity());
+                pst.setBoolean(41, recordItem.isAboriginal_or_torres_strait_islanders());
+                pst.setBoolean(42, recordItem.isAdults());
+                pst.setBoolean(43, recordItem.isElderly());
+                pst.setBoolean(44, recordItem.isChildren());
+                pst.setBoolean(45, recordItem.isOverseas());
+                pst.setBoolean(46, recordItem.isEarlyChildhood());
+                pst.setBoolean(47, recordItem.isEthnicGroups());
+                pst.setBoolean(48, recordItem.isFamilies());
+                pst.setBoolean(49, recordItem.isFemales());
+                pst.setBoolean(50, recordItem.isFinancial());
+                pst.setBoolean(51, recordItem.isLgbtPlus());
+                pst.setBoolean(52, recordItem.isGeneralCommunity());
+                pst.setBoolean(53, recordItem.isMales());
+                pst.setBoolean(54, recordItem.isMigrants());
+                pst.setBoolean(55, recordItem.isOtherBeneficiaries());
+                pst.setBoolean(56, recordItem.isOtherCharities());
+                pst.setBoolean(57, recordItem.isHomelessness());
+                pst.setBoolean(58, recordItem.isChronic_illness());
+                pst.setBoolean(59, recordItem.isDisabilities());
+                pst.setBoolean(60, recordItem.isPrePostReleaseOffenders());
+                pst.setBoolean(61, recordItem.isRural());
+                pst.setBoolean(62, recordItem.isUnemployed());
+                pst.setBoolean(63, recordItem.isVeterans());
+                pst.setBoolean(64, recordItem.isVictims_of_crime());
+                pst.setBoolean(65, recordItem.isVictims_of_disaster());
+                pst.setBoolean(66, recordItem.isYouth());
 
                 pst.executeUpdate();
                 log.info("inserted row: " + counter++);
@@ -114,11 +115,12 @@ public class JDBCConnector {
      * Creates the table for the charity information
      */
     public void createDatabase(){
-        try (Connection con = DataSourceConfig.dataSource().getConnection();
+        try (Connection con = (Connection) DataSourceConfig.dataSource();
              Statement st = con.createStatement();){
-            st.executeQuery("CREATE TABLE charities (" +
-                    "ID TEXT PRIMARY KEY," +
+            st.executeUpdate("CREATE TABLE charities (" +
+                    "ID INT AUTO_INCREMENT PRIMARY KEY," +
                     "ABN BIGINT," +
+                    "Charity_Legal_Name TEXT," +
                     "Other_Organisation_Names TEXT," +
                     "Address_Type TEXT," +
                     "Address_Line_1 TEXT," +
