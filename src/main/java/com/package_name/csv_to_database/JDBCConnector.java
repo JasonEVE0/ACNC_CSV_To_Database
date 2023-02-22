@@ -1,16 +1,21 @@
 package com.package_name.csv_to_database;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.SQLException;
+import java.sql.Connection;
 import java.sql.Types;
+
 import java.util.List;
 import java.util.logging.Logger;
 
 public class JDBCConnector {
 
-    private Logger log = Logger.getLogger(JDBCConnector.class.getName());
+    private final Logger log = Logger.getLogger(JDBCConnector.class.getName());
 
+    /**
+     * Inserts all records from the record list into the charity table
+     */
     public void insertRecordList(List<Record> recordList){
         int counter = 1;
         String query = "INSERT INTO charities VALUES (" +
@@ -105,8 +110,85 @@ public class JDBCConnector {
         }
     }
 
+    /**
+     * Creates the table for the charity information
+     */
     public void createDatabase(){
-        // todo - create the database query
+        try (Connection con = DataSourceConfig.dataSource().getConnection();
+             Statement st = con.createStatement();){
+            st.executeQuery("CREATE TABLE charities (" +
+                    "ID TEXT PRIMARY KEY," +
+                    "ABN BIGINT," +
+                    "Other_Organisation_Names TEXT," +
+                    "Address_Type TEXT," +
+                    "Address_Line_1 TEXT," +
+                    "Address_Line_2 TEXT," +
+                    "Address_Line_3 TEXT," +
+                    "Town_City TEXT," +
+                    "State TEXT," +
+                    "Postcode TEXT," +
+                    "Country TEXT," +
+                    "Charity_Website TEXT," +
+                    "Registration_Date TEXT," +
+                    "Date_Organisation_Established TEXT," +
+                    "Charity_Size TEXT," +
+                    "Number_of_Responsible_Persons TEXT," +
+                    "Financial_Year_End TEXT," +
+                    "Operates_in_ACT BOOLEAN," +
+                    "Operates_in_NSW BOOLEAN," +
+                    "Operates_in_NT BOOLEAN," +
+                    "Operates_in_QLD BOOLEAN," +
+                    "Operates_in_SA BOOLEAN," +
+                    "Operates_in_TAS BOOLEAN," +
+                    "Operates_in_VIC BOOLEAN," +
+                    "Operates_in_WA BOOLEAN," +
+                    "Operating_Countries TEXT," +
+                    "PBI BOOLEAN," +
+                    "HPC BOOLEAN," +
+                    "Preventing_or_relieving_suffering_of_animals BOOLEAN," +
+                    "Advancing_Culture BOOLEAN," +
+                    "Advancing_Education BOOLEAN," +
+                    "Advancing_Health BOOLEAN," +
+                    "Promote_or_oppose_a_change_to_law__government_poll_or_prac BOOLEAN," +
+                    "Advancing_natual_environment BOOLEAN," +
+                    "Promoting_or_protecting_human_rights BOOLEAN," +
+                    "Purposes_beneficial_to_ther_general_public_and_other_analogous BOOLEAN," +
+                    "Promoting_reconciliation__mutual_respect_and_tolerance BOOLEAN," +
+                    "Advancing_Religion BOOLEAN," +
+                    "Advancing_social_or_public_welfare BOOLEAN," +
+                    "Advancing_security_or_safety_of_Australia_or_Australian_public BOOLEAN," +
+                    "Aboriginal_or_TSI BOOLEAN," +
+                    "Adults BOOLEAN," +
+                    "Aged_Persons BOOLEAN," +
+                    "Children BOOLEAN," +
+                    "Communities_Overseas BOOLEAN," +
+                    "Early_Childhood BOOLEAN," +
+                    "Ethnic_Groups BOOLEAN," +
+                    "Families BOOLEAN," +
+                    "Females BOOLEAN," +
+                    "Financially_Disadvantaged BOOLEAN," +
+                    "Gay_Lesbian_Bisexual BOOLEAN," +
+                    "General_Community_in_Australia BOOLEAN," +
+                    "Males BOOLEAN," +
+                    "Migrants_Refugees_or_Asylum_Seekers BOOLEAN," +
+                    "Other_Beneficiaries BOOLEAN," +
+                    "Other_Charities BOOLEAN," +
+                    "People_at_risk_of_homelessness BOOLEAN," +
+                    "People_with_Chronic_Illness BOOLEAN," +
+                    "People_with_Disabilities BOOLEAN," +
+                    "Pre_Post_Release_Offenders BOOLEAN," +
+                    "Rural_Regional_Remote_Communities BOOLEAN," +
+                    "Unemployed_Person BOOLEAN," +
+                    "Veterans_or_their_families BOOLEAN," +
+                    "Victims_of_crime BOOLEAN," +
+                    "Victims_of_Disasters BOOLEAN," +
+                    "Youth BOOLEAN" +
+                    ");");
+            log.info("successfully created table");
+        } catch (SQLException e){
+            log.severe("fatal error - failed to create table");
+            e.printStackTrace();
+        }
     }
 
 }
